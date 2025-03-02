@@ -1,5 +1,5 @@
-import { markup } from '/js/render-functions';
-import { removeLoadStroke } from '/js/render-functions';
+import { markup } from './render-functions.js';
+import { removeLoadStroke } from './render-functions.js';
 import axios from 'axios';
 import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';

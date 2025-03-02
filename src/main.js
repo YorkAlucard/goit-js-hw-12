@@ -8,14 +8,14 @@ import 'izitoast/dist/css/iziToast.min.css';
 
 const box = document.querySelector('.gallery');
 const loader = document.querySelector('.loader');
-const loadMoreButton = document.querySelector('.load-more');
+const loadMoreButton = document.querySelector('.load-more-button');
 const form = document.querySelector('.search-form');
 const input = document.querySelector('.search-input');
 const iziOption = {
   messageColor: '#FAFAFB',
   messageSize: '16px',
   backgroundColor: '#EF4040',
-  iconURL: errorIcon,
+  iconUrl: errorIcon,
   transitionIn: 'bounceInLeft',
   position: 'topRight',
   displayMode: 'replace',
