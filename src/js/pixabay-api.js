@@ -1,13 +1,13 @@
 import { markup } from './render-functions.js';
-import { removeLoadStroke } from './render-functions.js';
+import { addLoadStroke, removeLoadStroke } from './render-functions.js';
 import axios from 'axios';
 import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
 import errorIcon from '../img/error.svg';
 
 const box = document.querySelector('.gallery');
-const load = document.querySelector('.loader');
-const addMoreButton = document.querySelector('.load-more-button');
+const loader = document.querySelector('.loader');
+const loadMoreButton = document.querySelector('.load-more-button');
 const iziOption = {
   messageColor: '#FAFAFB',
   messageSize: '16px',
@@ -34,7 +34,7 @@ function endOfList(daddyElement) {
     'beforeend',
     '<p class="loading-text">We\'re sorry, but you\'ve reached the end of search results .</p>'
   );
-  addMoreButton.classList.add('hide');
+  loadMoreButton.classList.add('hide');
 }
 
 export async function getImage(input) {
@@ -51,11 +51,12 @@ export async function getImage(input) {
   });
   const URL = `https://pixabay.com/api/?${urlParams}`;
 
+  addLoadStroke(loader);
   try {
     const { data } = await axios.get(URL);
     markup(data);
     if (data.totalHits < page * perPage) {
-      endOfList(load);
+      endOfList(loader);
       return;
     }
     if (page >= 2) {
@@ -69,11 +70,13 @@ export async function getImage(input) {
   } catch (error) {
     console.error(error);
     box.innerHTML = '';
-    load.innerHTML = '';
+    loader.innerHTML = '';
     iziToast.show({
       ...iziOption,
       message: 'Sorry, an error happened. Try again',
     });
-    return;
+    // return;
+  } finally {
+    removeLoadStroke(loader);
   }
 }

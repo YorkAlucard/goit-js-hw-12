@@ -38,7 +38,7 @@ form.addEventListener('submit', event => {
   getImage(inputValue);
 });
 
-addMoreButton.addEventListener('click', event => {
+loadMoreButton.addEventListener('click', event => {
   let inputValue = input.value.trim();
   addPage();
   addLoadStroke(loader);

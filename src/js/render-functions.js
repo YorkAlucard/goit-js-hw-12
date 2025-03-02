@@ -5,8 +5,8 @@ import 'simplelightbox/dist/simple-lightbox.min.css';
 import errorIcon from '../img/error.svg';
 
 const box = document.querySelector('.gallery');
-const load = document.querySelector('.loader');
-const addMoreButton = document.querySelector('.load-more-button');
+const loader = document.querySelector('.loader');
+const loadMoreButton = document.querySelector('.load-more-button');
 const iziOption = {
   messageColor: '#FAFAFB',
   messageSize: '16px',
@@ -19,11 +19,12 @@ const iziOption = {
 };
 
 export function addLoadStroke(daddyElement) {
+  daddyElement.innerHTML = '';
   daddyElement.insertAdjacentHTML(
     'beforeend',
     '<p class="loading-text">Wait, the image is loaded</p><span class="loader"></span>'
   );
-  addMoreButton.classList.add('hide');
+  loadMoreButton.classList.add('hide');
 }
 
 export function removeLoadStroke(daddyElement) {
@@ -33,7 +34,7 @@ export function removeLoadStroke(daddyElement) {
   if (textElement) textElement.remove();
   if (loaderElement) loaderElement.remove();
 
-  addMoreButton.classList.remove('hide');
+  loadMoreButton.classList.remove('hide');
 }
 
 export function markup(data) {
@@ -46,7 +47,7 @@ export function markup(data) {
         'Sorry, there are no images matching your search query. Please, try again!',
     });
     box.innerHTML = '';
-
+    loadMoreButton.classList.add('hide');
     return;
   }
   const markup = hits
@@ -69,7 +70,7 @@ export function markup(data) {
       </li>`
     )
     .join(' ');
-  removeLoadStroke(load);
+  removeLoadStroke(loader);
   box.insertAdjacentHTML('beforeend', markup);
 
   const lightbox = new SimpleLightbox('.gallery a', {
